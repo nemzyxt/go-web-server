@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+// handles /contact 
 func contactHandler(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		fmt.Fprintf(w, "Error : %v", err)
@@ -27,6 +28,7 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Message : %v", msg)
 }
 
+// handles /about
 func abtHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/about" {
 		http.Error(w, "Requested page not found !", http.StatusNotFound)
@@ -38,6 +40,7 @@ func abtHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "./static/about.html")
 }
 
+// the main function
 func main() {
 	fileServer := http.FileServer(http.Dir("./static"))
 	http.Handle("/", fileServer)
